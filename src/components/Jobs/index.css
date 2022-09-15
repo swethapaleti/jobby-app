@@ -1,0 +1,9 @@
+.bg {
+  background-color: black;
+  color: white;
+  height: 100vh;
+}
+
+.list-style {
+  list-style-type: none;
+}
