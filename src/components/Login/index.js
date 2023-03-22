@@ -5,87 +5,90 @@ import {Redirect} from 'react-router-dom'
 import './index.css'
 
 class Login extends Component {
-  state = {
-    username: '',
-    password: '',
-    errorMsg: '',
-  }
+  state = {username: '', password: '', showSubmitError: false, errorMsg: ''}
 
-  onUsername = event => {
-    this.setState({
-      username: event.target.value,
+  onSubmitSuccess = jwtToken => {
+    const {history} = this.props
+
+    Cookies.set('jwt_token', jwtToken, {
+      expires: 30,
     })
+    history.replace('/')
   }
 
-  onPassword = event => {
-    this.setState({
-      password: event.target.value,
-    })
+  onSubmitFailure = errorMsg => {
+    this.setState({showSubmitError: true, errorMsg})
   }
 
-  loginForm = async event => {
+  onSubmitLoginForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
+    const userDetails = {username, password}
+    const url = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
+      body: JSON.stringify(userDetails),
     }
-    try {
-      const response = await fetch('https://apis.ccbp.in/login', options)
-      const data = await response.json()
-      if (response.ok === true) {
-        const jwtToken = data.jwt_token
-        Cookies.set('jwt_token', jwtToken, {expires: 30})
-        const {history} = this.props
-        history.replace('/')
-      } else {
-        this.setState({
-          errorMsg: data.error_msg,
-        })
-      }
-    } catch (e) {
-      this.setState({
-        errorMsg: e.message,
-      })
+    const response = await fetch(url, options)
+    const data = await response.json()
+
+    if (response.ok === true) {
+      this.onSubmitSuccess(data.jwt_token)
+    } else {
+      this.onSubmitFailure(data.error_msg)
     }
+  }
+
+  onChangeUsername = e => {
+    this.setState({username: e.target.value})
+  }
+
+  onChangePassword = e => {
+    this.setState({password: e.target.value})
   }
 
   render() {
-    const {username, password, errorMsg} = this.state
-    const token = Cookies.get('jwt_token')
-    if (token !== undefined) {
+    const {showSubmitError, errorMsg, username, password} = this.state
+    const jwtToken = Cookies.get('jwt_token')
+
+    if (jwtToken !== undefined) {
       return <Redirect to="/" />
     }
+
     return (
-      <div>
-        <form onSubmit={this.loginForm}>
+      <div className="login-main">
+        <form className="login-sub" onSubmit={this.onSubmitLoginForm}>
           <img
             src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
             alt="website logo"
+            className="login-page-logo"
           />
-          <div>
-            <label htmlFor="username">USERNAME</label>
-            <input
-              placeholder="Username"
-              onChange={this.onUsername}
-              id="username"
-              value={username}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">PASSWORD</label>
-            <input
-              onChange={this.onPassword}
-              type="password"
-              id="password"
-              value={password}
-            />
-          </div>
-          <button type="submit">Login</button>
-          {errorMsg !== '' && <p>{errorMsg}</p>}
+          <label htmlFor="username" className="labe">
+            USERNAME
+          </label>
+          <input
+            className="input-box"
+            id="username"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={this.onChangeUsername}
+          />
+          <label htmlFor="pass" className="labe">
+            PASSWORD
+          </label>
+          <input
+            className="input-box"
+            type="password"
+            id="pass"
+            placeholder="Password"
+            value={password}
+            onChange={this.onChangePassword}
+          />
+          <button type="submit" className="login-btn">
+            Login
+          </button>
+          {showSubmitError && <p className="error-message">*{errorMsg}</p>}
         </form>
       </div>
     )

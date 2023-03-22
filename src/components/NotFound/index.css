@@ -1,0 +1,15 @@
+.not-found-c {
+  background-color: black;
+  height: 100vh;
+}
+.not-found {
+  width: 30%;
+}
+.not-found-ca {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  align-items: center;
+  color: white;
+}

@@ -1,0 +1,134 @@
+.ul-job-item {
+  list-style-type: none;
+  padding: 0;
+  min-height: 100vh;
+  padding: 10px;
+}
+.ul-job-item1 {
+  list-style-type: none;
+  padding: 0;
+  min-height: 100vh;
+  padding: 10px;
+}
+.job-item-bg {
+  background-color: black;
+  min-height: 100vh;
+  padding-bottom: 10px;
+}
+.skills-cont {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+.each-skill {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  justify-content: space-around;
+}
+.each-skill-image {
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+}
+.life-at-company {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.life-at-company-title {
+  width: 100%;
+  font-size: 16px;
+}
+.life-at-company-img {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .life-at-company {
+    display: flex;
+    flex-direction: row;
+  }
+  .life-at-company-title {
+    width: 60%;
+  }
+  .life-at-company-img {
+    width: 30%;
+  }
+  .ul-job-item1 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.job-details-failure-view {
+  color: #ffffff;
+  text-align: center;
+  font-family: 'Roboto';
+  background-color: black;
+  height: 90vh;
+}
+
+.job-details-loader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.ul-job-item-sec {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding: 10px;
+}
+.job-item2 {
+  color: white;
+  background-color: #272727;
+  padding: 10px;
+  list-style-type: none;
+  margin: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+@media screen and (min-width: 768px) {
+  .ul-job-item-sec {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  .job-item2 {
+    color: white;
+    background-color: #272727;
+    padding: 10px;
+    list-style-type: none;
+    margin: 20px;
+    border-radius: 10px;
+    width: 40%;
+  }
+}
+.similar-jobs-head {
+  color: white;
+  margin-left: 20px;
+  font-size: 30px;
+}
+.visit-sec {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.visit {
+  text-decoration: none;
+  color: #6366f1;
+}
+.visit-sec1 {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.visit-icon {
+  color: #6366f1;
+}
